@@ -4,6 +4,14 @@ public class Auto {
 
     static int count;
 
+    public void hank() {
+        System.out.println("Beeep beeep");
+    }
+
+    public static void someMethod() {
+        System.out.println("Я статический метод класса автомобиль");
+    }
+
     double power;
     double volume;
     String color;
@@ -26,6 +34,14 @@ public class Auto {
                 ", model='" + model + '\'' +
                 '}';
     }
+
+    static class ManufacturerAddress {
+        static String address = "Автомобильная, 1";
+
+        public void checkReceipt() {
+            System.out.println("Завод производства находится по адресу: " + address);
+        }
+    }
 }
 
 
@@ -39,5 +55,35 @@ class Application {
         System.out.println(auto2);
         System.out.println(auto3);
         System.out.println("Всего машин: " + Auto.count);
+
+        auto1.hank(); // вызов обычного метода из класса
+        Auto.someMethod(); // вызов статического метода из класса
+        auto1.someMethod(); // ! здесь на самом деле вызов из класса - синтаксический сахар/рефликсивный вызов
+
+        System.out.println(Auto.ManufacturerAddress.address);
+
+        Auto.ManufacturerAddress manufacturerAddress = new Auto.ManufacturerAddress();
+        // вызов статической переменной из вложенного статического класса
+
+        manufacturerAddress.checkReceipt(); // вызов обычного метода из
+    }
+}
+
+
+
+// для чего может понадобиться внешний и внутренний класс?
+class Display {
+    int h;
+    int w;
+
+    Pixel[][] pixels;
+
+    public Display(int h, int w) {
+        this.h = h;
+        this.w = w;
+    }
+
+    class Pixel{
+        double color;
     }
 }
